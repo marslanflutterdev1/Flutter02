@@ -6,6 +6,10 @@ import 'package:journey_flutter/BMI/constants.dart';
 import 'package:journey_flutter/BMI/formula.dart';
 import 'package:journey_flutter/BMI/secondPaged.dart';
 
+import 'buttonIncDec.dart';
+import 'reusedContainer.dart';
+import 'reusedPersonContainer.dart';
+
 enum Gander {
   male,
   female,
@@ -24,7 +28,7 @@ class _HomePagedState extends State<HomePaged> {
   Gander? setColorPerson;
   double startValueSlider = 45.0;
   int weightValue = 1;
- static int ageValue = 1;
+  static int ageValue = 1;
 
   // This one used for  set colors of gender
   // Color maleColor = deactiveColor;
@@ -52,10 +56,10 @@ class _HomePagedState extends State<HomePaged> {
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Expanded(
-               // flex: 1,
+                  // flex: 1,
                   child: Row(
                 children: [
                   Expanded(
@@ -91,13 +95,12 @@ class _HomePagedState extends State<HomePaged> {
                 ],
               )),
               Expanded(
-               // flex: 1,
+                  // flex: 1,
                   child: reusedContainer(
                 colored: const Color(0xff1D1E33),
                 customWidget: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                   
                     const Text(
                       'Height',
                       style: kLabalStyle,
@@ -136,7 +139,7 @@ class _HomePagedState extends State<HomePaged> {
                 ),
               )),
               Expanded(
-             //   flex: 1,
+                  //   flex: 1,
                   child: Row(
                 children: [
                   Expanded(
@@ -241,13 +244,17 @@ class _HomePagedState extends State<HomePaged> {
                 flex: 0,
                 child: GestureDetector(
                   onTap: () {
-                    formula form=formula(height: startValueSlider.toInt(), weight: weightValue);
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> SecondPaged(
-                      calBMI: form.calculateBMI(),
-                      rangebmi: form.rangeBMI(),
-                      expbmi: form.describeBMI(),
-                      aged:ageValue.toString() ,
-                    )));
+                    formula form = formula(
+                        height: startValueSlider.toInt(), weight: weightValue);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SecondPaged(
+                                  calBMI: form.calculateBMI(),
+                                  rangebmi: form.rangeBMI(),
+                                  expbmi: form.describeBMI(),
+                                  aged: ageValue.toString(),
+                                )));
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 1,
@@ -265,82 +272,5 @@ class _HomePagedState extends State<HomePaged> {
             ],
           ),
         ));
-  }
-}
-
-class ButtonID extends StatelessWidget {
-  const ButtonID({super.key, required this.iconData, required this.onPressed});
-  final IconData? iconData;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: RawMaterialButton(
-        child: Icon(
-          iconData,
-        ),
-        onPressed: onPressed,
-        elevation: 6.0,
-        constraints: const BoxConstraints.tightFor(width: 56.0, height: 56.0),
-        shape: const CircleBorder(),
-        fillColor: const Color(0xff4C4F5E),
-      ),
-    );
-  }
-}
-
-class reusedPersonContainer extends StatelessWidget {
-  const reusedPersonContainer(
-      {super.key, required this.icon, required this.labal});
-
-  final IconData icon;
-  final String labal;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          icon,
-          size: 70,
-          color: const Color(0xff8D8E98),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Text(
-          labal.toString(),
-          style: kLabalStyle,
-        ),
-      ],
-    );
-  }
-}
-
-class reusedContainer extends StatelessWidget {
-  const reusedContainer({
-    required this.customWidget,
-    required this.colored,
-    this.onPres,
-  });
-  final Color colored;
-  final Widget customWidget;
-  final VoidCallback? onPres;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPres,
-      child: Container(
-        margin: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: colored,
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: customWidget,
-      ),
-    );
   }
 }

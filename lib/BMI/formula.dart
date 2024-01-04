@@ -2,8 +2,6 @@
 
 import 'dart:math';
 
-import 'package:journey_flutter/BMI/homePaged.dart';
-
 class formula {
   formula({required this.height, required this.weight});
   final int height;
@@ -15,7 +13,7 @@ class formula {
     return _bmi!.toStringAsFixed(1);
   }
 
-  String rangeBMI( ) {
+  String rangeBMI() {
     if (_bmi! <= 18.5) {
       return 'You Underweight ';
     } else if (_bmi! == 18.5 && _bmi! == 24.9) {
